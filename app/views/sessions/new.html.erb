@@ -1,15 +1,26 @@
-<p id=”alert”><%= alert %></p>
-<h1>Login</h1>
-<%= form_tag sessions_path do |form| %>
-  <div class=”field”>
-    <%= label_tag :email %>
-    <%= text_field_tag :email %>
-  </div>
-  <div class=”field”>
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
-  </div>
-  <div class=”actions”>
-    <%= submit_tag 'Login' %>
-  </div>
-<% end %>
+<div class="columns">
+    <div class="column is-8 is-offset-2">
+      <div class="columns">
+        <div class="column is-8 is-offset-2">
+          <p id="notice"><%= notice %></p>
+          <p id=”alert”><%= alert %></p>
+          <h1 class="has-text-centered">Login</h1>
+          <br/>
+          <%= form_tag sessions_path do |form| %>
+            <div class=”field”>
+              <%= label_tag :email, "Email", class: "label" %>
+              <%= text_field_tag :email, nil, class: "input" %>
+            </div>
+            <div class=”field”>
+              <%= label_tag :password, "Password", class: "label" %>
+              <%= password_field_tag :password, nil, class: "input" %>
+            </div>
+            <br/>
+            <div class=”actions”>
+              <%= submit_tag 'Login', class: 'button is-success' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+</div>
