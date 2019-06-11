@@ -1,5 +1,49 @@
 <div class="columns">
   <div class="column is-8 is-offset-2">
-    <p>Welcome</p>
+    <% if current_user %>
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Size</th>
+          <th>File</th>
+          <th>Created</th>
+          <th>Modified</th>          
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @documents.each do |document| %>
+          <tr>
+            <td><%= document.title %></td>
+            <td><%= number_to_human_size(document.file.blob.byte_size) %></td>
+            <td><%= link_to document.file.filename, rails_blob_path(document.file, disposition: "attachment") %></td>
+            <td><%= document.created_at.to_date %></td>
+            <td><%= document.updated_at.to_date %></td>
+            <td><%= link_to 'Edit', edit_document_path(document) %></td>
+            <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Document', new_document_path, class: "button is-primary" %>
+    <% else %>
+    <section class="hero is-light">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="has-text-centered title">
+            File Transfer
+          </h1>
+          <h2 class="has-text-centered subtitle">
+            A file transfer program which can transfer files back and forth from a remote web server
+          </h2>
+        </div>
+      </div>
+    </section>
+    <% end %>
   </div>
 </div>
