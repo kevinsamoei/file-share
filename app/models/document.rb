@@ -1,7 +1,8 @@
 class Document < ApplicationRecord
   has_one_attached :file
+  belongs_to :user
 
-  validates_uniqueness_of :title
+  validates_uniqueness_of :title, scope: :user_id
   validates_presence_of :title
   validate :file_presence
   validate :file_uniqueness
@@ -16,7 +17,7 @@ class Document < ApplicationRecord
   end
 
   def file_uniqueness 
-    documents = Document.all
+    documents = Document.where(user_id: user_id)
     documents.each do |doc|
       if file.attached?
         if doc.file.filename == self.file.filename

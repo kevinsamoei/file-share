@@ -4,7 +4,7 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all
+    @documents = current_user.documents
     redirect_to root_url
   end
 
@@ -26,6 +26,7 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @document = Document.new(document_params)
+    @document.user = current_user
 
     respond_to do |format|
       if @document.save

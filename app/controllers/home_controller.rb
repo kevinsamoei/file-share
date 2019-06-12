@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   def index
-    @documents = Document.all
+    if current_user
+      @documents = current_user.documents
+    end
   end
 end
